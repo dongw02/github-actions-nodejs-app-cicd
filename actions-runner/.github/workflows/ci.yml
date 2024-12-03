@@ -1,0 +1,24 @@
+name: Node.js CI/CD  # 워크플로우 이름
+
+on:  # 워크플로우가 실행되는 조건
+  push:  # push 이벤트가 발생할 때 실행
+    branches: [ "main" ]  # main 브랜치에 push될 때만 실행
+
+jobs:  # 실행할 작업 정의
+  build:
+    runs-on: self-hosted  # GitHub Actions Runner를 사용할 것
+
+    steps:
+    - name: Checkout repository  # 저장소를 클론
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js environment  # Node.js 환경 설정
+      uses: actions/setup-node@v4
+      with:
+        node-version: '16'  # 사용할 Node.js 버전
+
+    - name: Install dependencies  # 프로젝트 의존성 설치
+      run: npm install
+
+    - name: Run tests  # 테스트 실행
+      run: npm test
